@@ -2146,6 +2146,13 @@ header * {
         --height: 40px;
         --contact-width: 72px;
         --contact-height: 36px;
+
+
+    }
+    
+.custom-select .selected, .custom-select .options, #themeToggle, .service-content, .background-text-line, .skills-container, .project-card, .project-card:not(:hover) .project-content img.project-image, .review-card, .resume-close-container, .image-viewer-content img, .image-viewer-close-container, .form-group input, .form-group textarea {
+        backdrop-filter: none;
+        filter: none;
     }
 
     .background-text-container {
@@ -2242,14 +2249,5 @@ header * {
     .review-card:hover::after {
         content: "II";
         font-size: 142px;
-    }
-
-    .glitch-container, .nav-glitch, .glitch-button, .glitch-text-small {
-        display: none;
-        transition: none;
-    }
-    #home-glitch, #services-glitch {
-        display: none;
-        transition: none;
     }
 }

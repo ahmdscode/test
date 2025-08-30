@@ -2316,4 +2316,14 @@ html, body {
   .review-card:not(.active) {
     display: none; /* Hide offscreen elements */
   }
+
+    .glitch-container, .nav-glitch, .glitch-button, .glitch-text-small {
+        display: none;
+        transition: none;
+    }
+    #home-glitch, #services-glitch {
+        display: none;
+        transition: none;
+    }
 }
+

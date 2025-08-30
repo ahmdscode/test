@@ -70,34 +70,21 @@ const weirdProjectButton = document.getElementById('weird-project');
 
 const floatTexts = document.querySelectorAll(".float-text");
 
-  if (!('ontouchstart' in window)) {
-    document.addEventListener("mousemove", (e) => {
-        let x = (e.clientX / window.innerWidth) - 0.5;
-        let y = (e.clientY / window.innerHeight) - 0.5;
-        let moveX = x * 25;
-        let moveY = y * 25;
-        floatTexts.forEach(el => {
-            el.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        });
-    }, { passive: true });
-}
+  document.addEventListener("mousemove", (e) => {
+    let x = (e.clientX / window.innerWidth) - 0.5;
+    let y = (e.clientY / window.innerHeight) - 0.5;
+
+    let moveX = x * 25;
+    let moveY = y * 25;
+
+    floatTexts.forEach(el => {
+      el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+});
 
 function stopReviewAutoSlide() {
     clearTimeout(reviewAutoSlideTimeout);
 }
-
-document.querySelector('.nav-bar').addEventListener('click', (e) => {
-    const navButton = e.target.closest('.nav-button');
-    if (navButton) {
-        e.preventDefault();
-        const sectionId = navButton.id.replace('-nav', '');
-        const targetSection = sectionId === 'home' ? 'introduction' : sectionId;
-        const section = document.getElementById(targetSection);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-});
 
 // Navigation Click Handler
 if (navGlitchWrappers.length > 0) {
@@ -140,8 +127,8 @@ if (homeNav && skillsNav && servicesNav && projectsNav && reviewsNav && contactN
 
     const observerOptions = {
         root: null,
-        threshold: 0.3,
-        rootMargin: '0px'
+        threshold: 0.5,
+        rootMargin: '-50px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -301,9 +288,9 @@ if (imageViewer && imageViewerCloseContainer && imageViewerClose && imageViewerI
     imageViewer.addEventListener('touchend', (e) => {
         touchEndX = e.changedTouches[0].screenX;
         const swipeDistance = touchEndX - touchStartX;
-        if (Math.abs(swipeDistance) > 30) {
-            if (swipeDistance > 0) navigateImage(-1);
-            else navigateImage(1);
+        if (Math.abs(swipeDistance) > 50) { // Minimum swipe distance
+            if (swipeDistance > 0) navigateImage(-1); // Swipe right: previous
+            else navigateImage(1); // Swipe left: next
         }
     });
 
@@ -341,41 +328,32 @@ if (localTimeElement) {
         const day = time.getDate().toString().padStart(2, '0');
         const hours = time.getHours().toString().padStart(2, '0');
         const minutes = time.getMinutes().toString().padStart(2, '0');
-        return `${year} ${month} ${day} / ${hours}:${minutes}`;
+        const seconds = time.getSeconds().toString().padStart(2, '0');
+        return `${year} ${month} ${day} / ${hours}:${minutes}:${seconds}`;
     }
 
-    function updateTime() {
-        localTimeElement.textContent = formatLocalDateTime();
-        setTimeout(() => requestAnimationFrame(updateTime), 5000); // Every 5s
-    }
-
-    const timeObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) requestAnimationFrame(updateTime);
-    }, { root: null, threshold: 0 });
-    timeObserver.observe(localTimeElement);
+    localTimeElement.textContent = formatLocalDateTime();
+    setInterval(() => localTimeElement.textContent = formatLocalDateTime(), 1000);
+} else {
+    console.error('Local time element not found.');
 }
 
 // Name Glitch Effect
 if (glitchContainer && nameText) {
     function triggerGlitch() {
-    if (!nameText || !glitchContainer) return;
-    nameText.classList.add('hidden');
-    glitchContainer.classList.remove('hidden');
-    glitchContainer.classList.add('show');
-    setTimeout(() => {
-        glitchContainer.classList.remove('show');
-        glitchContainer.classList.add('hidden');
-        nameText.classList.remove('hidden');
-    }, 500);
-}
+        nameText.classList.add('hidden');
+        glitchContainer.classList.remove('hidden');
+        glitchContainer.classList.add('show');
+        setTimeout(() => {
+            glitchContainer.classList.remove('show');
+            glitchContainer.classList.add('hidden');
+            nameText.classList.remove('hidden');
+        }, 500);
+    }
 
-function glitchLoop() {
-    if ('ontouchstart' in window) return; // Skip on mobile
-    triggerGlitch();
-    setTimeout(() => requestAnimationFrame(glitchLoop), 5000); // Every 5s
-}
-requestAnimationFrame(glitchLoop); // Start loop
-
+    setInterval(triggerGlitch, 3000);
+    setTimeout(triggerGlitch, 1000);
+} else {
     console.error('Name glitch elements not found.');
 }
 
@@ -820,3 +798,31 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Required elements (themeToggle, body, or select) not found.');
     }
 });
+
+const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+if (!isMobile) {
+  document.addEventListener("mousemove", throttle((e) => {
+    let x = (e.clientX / window.innerWidth) - 0.5;
+    let y = (e.clientY / window.innerHeight) - 0.5;
+    let moveX = x * 10; // Reduced scale for mobile
+    let moveY = y * 10;
+    floatTexts.forEach(el => {
+      el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+  }, 33));
+}
+
+// Pause carousels when not in view
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      startImageAutoSlide();
+      startReviewAutoSlide();
+    } else {
+      stopImageAutoSlide();
+      stopReviewAutoSlide();
+    }
+  });
+}, { rootMargin: '0px', threshold: 0.1 });
+observer.observe(document.querySelector('#projects'));
+observer.observe(document.querySelector('#reviews'));

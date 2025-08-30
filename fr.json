@@ -1,0 +1,136 @@
+{
+  "nav": {
+    "home": "À PROPOS",
+    "services": "SERVICES",
+    "projects": "PROJETS",
+    "skills": "COMPÉTENCES",
+    "reviews": "AVIS",
+    "contact": "CONTACT"
+  },
+  "theme": {
+    "dark": "Sombre",
+    "white": "Blanc"
+  },
+  "introduction": {
+    "freelance": "Disponible pour freelance",
+    "about": "À propos",
+    "name": "Ahmed",
+    "surname": "Isaev /",
+    "greeting": "Programmeur / Designer",
+    "description": "Salut, je suis <i>Ahmed</i> — un développeur logiciel qui combine <i>codage</i>, <i>design</i> et <i>IA</i> pour créer des <i>sites web</i>, des <i>applications mobiles</i> et des solutions numériques <i>intelligentes</i>, qui sont <i>fonctionnelles</i>, <i>conviviales</i> et <i>prêtes pour l’avenir</i>.",
+    "resume": "En savoir plus"
+  },
+  "resume": {
+    "content": "Salut encore, je suis <i>Ahmed</i>, un développeur full-stack de <i>26 ans</i> avec plus de <i>quatre ans d’expérience professionnelle</i> dans la création de <i>sites web</i>, d’<i>applications web</i>, d’<i>applications mobiles</i> et de <i>solutions IA</i>.<br><br>Je me concentre sur la création d’expériences numériques <i>pratiques</i> et <i>conviviales</i> qui résolvent des problèmes réels, en utilisant des technologies comme <i>JavaScript</i>, <i>React.js</i>, <i>Node.js</i> et d’autres <i>outils efficaces</i>.<br><br>Je détiens des certifications en <i>AWS</i>, <i>Azure</i> et plusieurs autres plateformes, ce qui a renforcé ma capacité à fournir des solutions <i>évolutives</i> et <i>fiables</i>.<br><br>J’ai eu l’opportunité de travailler avec plus de <i>20 particuliers</i> et de contribuer à des projets pour <i>trois entreprises</i> en tant que freelance, acquérant une expérience précieuse en <i>collaboration</i>, <i>résolution de problèmes</i> et <i>livraison de résultats</i> dans différentes circonstances.<br><br>J’aime développer des projets qui soutiennent le succès des <i>particuliers</i> et des <i>entreprises</i>, en visant toujours à fournir des résultats <i>significatifs</i> et <i>efficaces</i>.",
+    "respect": "Cordialement,<br>Ahmed."
+  },
+  "services": {
+    "title": "Ce que je fais <span class=\"dash\">—</span>",
+    "services": "Services",
+    "landing_website": {
+      "title": "Site d’atterrissage :",
+      "description": "Un site web <i>à page unique</i> optimisé pour les conversions, avec un design moderne et une mise en page réactive.",
+      "price": "200 $ – 800 $",
+      "contact": "Contact"
+    },
+    "online_shop": {
+      "title": "Boutique en ligne :",
+      "description": "Une plateforme d’<i>e-commerce</i> entièrement fonctionnelle avec des listes de produits, un panier et une intégration de paiement.",
+      "price": "400 $ – 2 000 $",
+      "contact": "Contact"
+    },
+    "web_application": {
+      "title": "Application web :",
+      "description": "Applications web personnalisées avec des fonctionnalités <i>dynamiques</i>, des API et une authentification utilisateur.",
+      "price": "800 $ – 5 000 $",
+      "contact": "Contact"
+    },
+    "mobile_application": {
+      "title": "Application mobile :",
+      "description": "Applications mobiles <i>multiplateformes</i> construites avec React Native pour iOS et Android.",
+      "price": "1 000 $ – 10 000 $",
+      "contact": "Contact"
+    },
+    "ai_solutions": {
+      "title": "Solutions IA :",
+      "description": "Solutions innovantes <i>alimentées par l’IA</i> pour les entreprises et les particuliers. Des chatbots sur <i>Telegram</i> et <i>Discord</i> à l’automatisation web personnalisée.",
+      "price": "600 $ – 3 000 $",
+      "contact": "Contact"
+    }
+  },
+  "projects": {
+    "title": "Mes projets <span class=\"dash\">—</span>",
+    "projects": "Projets",
+    "project_1": {
+      "title": "Projet 1",
+      "description": "Il s’agit d’une application web construite avec des technologies modernes pour résoudre des problèmes réels. Elle présente une interface utilisateur propre et des fonctionnalités robustes.",
+      "link": "Voir en direct"
+    },
+    "project_2": {
+      "title": "Projet 2",
+      "description": "Une plateforme dynamique conçue pour une interaction utilisateur fluide, utilisant le développement full-stack pour des performances et une évolutivité.",
+      "link": "Voir en direct"
+    },
+    "project_3": {
+      "title": "Projet 3",
+      "description": "Il s’agit d’une application web construite avec des technologies modernes pour résoudre des problèmes réels. Elle présente une interface utilisateur propre et des fonctionnalités robustes.",
+      "link": "Voir en direct"
+    },
+    "project_copyright": "Toutes les œuvres présentées sont des créations originales destinées uniquement à mettre en valeur mes compétences, avec tous les droits d’auteur conservés par moi. Les projets de clients et d’entreprises ne sont pas inclus en raison d’accords de droits d’auteur et de confidentialité.",
+    "previous": "précédent",
+    "next": "suivant"
+  },
+  "skills": {
+    "title": "Technologies que je maîtrise <span class=\"dash\">—</span>",
+    "skills": "Compétences",
+    "frontend_label": "Front-end :",
+    "backend_label": "Back-end :",
+    "workflow_label": "Flux de travail :",
+    "workflow_description": "Chaque projet commence par une idée, ou parfois un plan solide, et c’est ce qui donne le ton à tout ce qui suit. Avant d’écrire une seule ligne de code, j’ouvre Figma pour concevoir des mises en page propres et minimalistes qui sont esthétiques et naturelles à utiliser. Pour les pages d’atterrissage simples, je m’en tiens aux classiques : HTML, CSS et JavaScript — rapide à charger et facile à maintenir. Si le site doit être interactif et complexe, je passe à React.js, pour garder tout propre mais jamais trop compliqué. En coulisses, je travaille principalement avec Node.js. C’est fiable, rapide et s’intègre parfaitement avec JavaScript partout ailleurs. En bref, je crois que moins c’est plus — tout garder minimaliste, sans encombrement ni extras, juste propre, fonctionnel et convivial."
+  },
+  "reviews": {
+    "title": "Ce que disent les clients ?",
+    "reviews": "Avis",
+
+
+
+
+
+
+    
+
+    
+
+
+
+
+
+
+
+    
+    "write_review_title": "Travaillé pour vous en freelance ?",
+    "write_review_description": "Dites-moi comment je m’en suis sorti ! Cliquez sur <i>ÉCRIRE</i> et laissez un avis — <i>bon</i>, <i>mauvais</i>, ou tout ce qui se trouve entre les deux. Tout compte.",
+    "write_review_button": "Écrire",
+    "write_review_glitch": "SOYEZ HONNÊTE"
+  },
+  "contact": {
+    "title": "Je suis en ligne sur <span class=\"dash\">—</span>",
+    "contact": "Contact",
+    "contact_text": {
+      "telegram": "Telegram",
+      "or": "/",
+      "whatsapp": "WhatsApp",
+      "message_below": "ou envoyez-moi simplement un <i>message ci-dessous</i> — je répondrai dès que possible."
+    },
+    "form": {
+      "name_label": "Nom :",
+      "email_label": "Email :",
+      "message_label": "Message :",
+      "submit": "ENVOYER"
+    },
+    "footer_copyright": "Droits d’auteur : Ahmed I. R."
+  },
+  "image_viewer": {
+    "hint": "Cliquez à gauche/droite pour voir l’image précédente/suivante"
+  }
+}

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmed </title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head> 
+<body class="white-theme">
+    <header>
+        <nav class="nav-bar">
+            <div class="nav-glitch-wrapper">
+                <button id="home-nav" class="nav-button" aria-label="Go to home" data-i18n="nav.home"></button>
+                <div id="home-glitch" class="glitch-container nav-glitch hidden">
+                    <button class="glitch-button glitch-text-small" data-text="" data-i18n="nav.home" aria-label="Go to home"></button>
+                </div>
+            </div>
+            <div class="nav-glitch-wrapper">
+                <div class="wrapper"></div>
+            </div>
+            <div class="nav-glitch-wrapper">
+                <button id="services-nav" class="nav-button" aria-label="Go to services" data-i18n="nav.services"></button>
+                <div id="services-nav-glitch" class="glitch-container nav-glitch hidden">
+                    <button class="glitch-button glitch-text-small" data-text="" data-i18n="nav.services" aria-label="Go to services"></button>
+                </div>
+            </div>
+            <div class="nav-glitch-wrapper">
+                <div class="wrapper"></div>
+            </div>
+            <div class="nav-glitch-wrapper">
+                <button id="projects-nav" class="nav-button" aria-label="Go to projects" data-i18n="nav.projects"></button>
+                <div id="projects-nav-glitch" class="glitch-container nav-glitch hidden">
+                    <button class="glitch-button glitch-text-small" data-text="" data-i18n="nav.projects" aria-label="Go to projects"></button>
+                </div>
+            </div>
+            <div class="nav-glitch-wrapper">
+                <div class="wrapper"></div>
+            </div>
+            <div class="nav-glitch-wrapper">
+                <button id="skills-nav" class="nav-button" aria-label="Go to skills" data-i18n="nav.skills"></button>
+                <div id="skills-nav-glitch" class="glitch-container nav-glitch hidden">
+                    <button class="glitch-button glitch-text-small" data-text="" data-i18n="nav.skills" aria-label="Go to skills"></button>
+                </div>
+            </div>
+            <div class="nav-glitch-wrapper">
+                <div class="wrapper"></div>
+            </div>
+            <div class="nav-glitch-wrapper">
+                <button id="reviews-nav" class="nav-button" aria-label="Go to reviews" data-i18n="nav.reviews"></button>
+                <div id="reviews-nav-glitch" class="glitch-container nav-glitch hidden">
+                    <button class="glitch-button glitch-text-small" data-text="" data-i18n="nav.reviews" aria-label="Go to reviews"></button>
+                </div>
+            </div>
+            <div class="nav-glitch-wrapper">
+                <div class="wrapper"></div>
+            </div>
+            <div class="nav-glitch-wrapper">
+                <button id="contact-nav" class="nav-button" aria-label="Go to contact" data-i18n="nav.contact"></button>
+                <div id="contact-nav-glitch" class="glitch-container nav-glitch hidden">
+                    <button class="glitch-button glitch-text-small" data-text="" data-i18n="nav.contact" aria-label="Go to contact"></button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="custom-select">
+        <div class="selected">English</div>
+            
+        <div class="options">
+            <div data-value="ce">Нохчийн</div>
+            <hr class="divider">
+            <div data-value="ru">Русский</div>
+            <hr class="divider">
+            <div data-value="en">English</div>
+            <hr class="divider">
+            <div data-value="de">Deutsch</div>
+            <hr class="divider">
+            <div data-value="fr">Français</div>
+        </div>
+    </div>
+
+    <div class="theme-toggle-container">
+        <button id="themeToggle" aria-label="Toggle theme" data-i18n="theme.dark"></button>
+    </div>
+    
+    <div id="resume-container" class="resume-container hidden">
+        <div class="resume-content">
+            <div class="resume-card">
+                <p data-i18n="resume.content"></p>
+            </div>
+            <br>
+            <span data-i18n="resume.respect"></span>
+        </div>
+    </div>
+
+    <div id="resume-close-container" class="resume-close-container hidden">
+        <button id="resume-close" class="nav-button" aria-label="Close resume"></button>
+    </div>
+
+    <!-- <section id="introduction" class="section">
+        <div class="freelance"> 
+            <div></div> <span data-i18n="introduction.freelance">Available for Freelance</span>
+        </div>
+
+        <div class="background-text-container">
+            <div class="background-text-line float-text" id="line" data-i18n="introduction.about"></div>
+        </div>
+
+        <div class="about-content">
+            <div class="name-container">
+                <span class="name" id="name-text" data-i18n="introduction.name"></span>
+                <div id="glitchcontainer" class="glitch-container hidden">
+                    <span id="glitch-text" class="glitch-text" data-text="" data-i18n="introduction.surname"></span>
+                </div>
+            </div>
+
+            <h2 data-i18n="introduction.greeting"></h2>
+
+            <p data-i18n="introduction.description"></p>
+            <div>
+                <div class="resume-glitch-wrapper">
+                    <button id="resume-section" class="resume-toggle" aria-label="Open resume" data-i18n="introduction.resume"></button>
+                    <div id="resume-glitch" class="glitch-container resume-glitch hidden">
+                        <button class="glitch-button glitch-text-small" data-text="" data-i18n="introduction.resume" aria-label="Open resume"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+    <section id="services" class="section">
+        <div class="background-text-container">
+            <div class="background-text-line float-text" id="line" data-i18n="services.services"></div>
+        </div>
+        <div class="services-section">
+            <div class="services-content">
+                <h2 data-i18n="services.title"></h2>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <div class="service-content">
+                            <div class="service-description"> 
+                                <div data-i18n="services.landing_website.title"></div> 
+                                <span data-i18n="services.landing_website.description"></span>
+                            </div>
+                            <div class="service-header">
+                                <div class="service-price-glitch-wrapper">
+                                    <button class="service-price" data-service="Landing Website" aria-label="Order Landing Website" data-i18n="services.landing_website.contact"></button>
+                                    <div class="glitch-container service-price-glitch hidden">
+                                        <button class="glitch-button glitch-text-small" data-text="" data-i18n="services.landing_website.contact" aria-label="Order Landing Website"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-content">
+                            <div class="service-description">
+                                <div data-i18n="services.online_shop.title"></div> 
+                                <span data-i18n="services.online_shop.description"></span>
+                            </div>
+                            <div class="service-header">
+                                <div class="service-price-glitch-wrapper">
+                                    <button class="service-price" data-service="Online Shop" aria-label="Order Online Shop" data-i18n="services.online_shop.contact"></button>
+                                    <div class="glitch-container service-price-glitch hidden">
+                                        <button class="glitch-button glitch-text-small" data-text="" data-i18n="services.online_shop.contact" aria-label="Order Online Shop"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-content">
+                            <div class="service-description">
+                                <div data-i18n="services.web_application.title"></div> 
+                                <span data-i18n="services.web_application.description"></span>
+                            </div>
+                           <div class="service-header">
+                                <div class="service-price-glitch-wrapper">
+                                    <button class="service-price" data-service="Web Application" aria-label="Order Web Application" data-i18n="services.web_application.contact"></button>
+                                    <div class="glitch-container service-price-glitch hidden">
+                                        <button class="glitch-button glitch-text-small" data-text="" data-i18n="services.web_application.contact" aria-label="Order Web Application"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-content">
+                            <div class="service-description">
+                                <div data-i18n="services.mobile_application.title"></div>
+                                <span data-i18n="services.mobile_application.description"></span>
+                            </div>
+                            <div class="service-header">
+                                <div class="service-price-glitch-wrapper">
+                                    <button class="service-price" data-service="Mobile Application" aria-label="Order Mobile Application" data-i18n="services.mobile_application.contact"></button>
+                                    <div class="glitch-container service-price-glitch hidden">
+                                        <button class="glitch-button glitch-text-small" data-text="" data-i18n="services.mobile_application.contact" aria-label="Order Mobile Application"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="service-content">
+                    <div class="service-description">
+                        <div data-i18n="services.ai_solutions.title"></div>
+                        <span data-i18n="services.ai_solutions.description"></span>
+                    </div>
+                     <div class="service-header">
+                        <div class="service-price-glitch-wrapper">
+                            <button id="weird-project" class="service-price" data-service="AI Solutions" aria-label="Order AI Solutions" data-i18n="services.ai_solutions.contact"></button>
+                            <div class="glitch-container service-price-glitch hidden">
+                                <button class="glitch-button glitch-text-small" data-text="" data-i18n="services.ai_solutions.contact" aria-label="Order AI Solutions"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <section id="projects" class="section">
+    <div class="background-text-container">
+        <div class="background-text-line float-text" id="line" data-i18n="projects.projects"></div>
+    </div>
+    <h2 data-i18n="projects.title"></span></h2>
+    <div class="project-carousel">
+        <div class="carousel-track">
+            <div class="project-card" data-index="0">
+                <div class="project-content">
+                    <div class="project-image-carousel">
+                        <div class="project-image-track">
+                            <img src="images/c1.png" alt="Screenshot of Project 1 - Image 1" class="project-image active">
+                            <img src="images/c2.png" alt="Screenshot of Project 1 - Image 2" class="project-image">
+                            <img src="images/c3.png" alt="Screenshot of Project 1 - Image 3" class="project-image">
+                            <img src="images/c4.png" alt="Screenshot of Project 1 - Image 4" class="project-image">
+                        </div>
+                    </div>
+                    <div class="project-description">
+                        <h3 data-i18n="projects.project_1.title"></h3>
+                        <p data-i18n="projects.project_1.description"></p>
+                        <div data-i18n="projects.project_1.link"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-index="1">
+                <div class="project-content">
+                    <div class="project-image-carousel">
+                        <div class="project-image-track">
+                            <img src="images/dr1.png" alt="Screenshot of Project 2 - Image 1" class="project-image active">
+                            <img src="images/dr2.png" alt="Screenshot of Project 2 - Image 2" class="project-image">
+                            <img src="images/dr3.png" alt="Screenshot of Project 2 - Image 3" class="project-image">
+                            <img src="images/dr4.png" alt="Screenshot of Project 2 - Image 4" class="project-image">
+                            <img src="images/dr5.png" alt="Screenshot of Project 2 - Image 4" class="project-image">
+                        </div>
+                    </div>
+                    <div class="project-description">
+                        <h3 data-i18n="projects.project_2.title"></h3>
+                        <p data-i18n="projects.project_2.description"></p>
+                        <div data-i18n="projects.project_2.link"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-index="2">
+                <div class="project-content">
+                    <div class="project-image-carousel">
+                        <div class="project-image-track">
+                            <img src="images/it1.png" alt="Screenshot of Project 3 - Image 1" class="project-image active">
+                            <img src="images/it2.png" alt="Screenshot of Project 3 - Image 2" class="project-image">
+                            <img src="images/it3.png" alt="Screenshot of Project 3 - Image 2" class="project-image">
+                            <img src="images/it4.png" alt="Screenshot of Project 3 - Image 2" class="project-image">
+                        </div>
+                    </div>
+                    <div class="project-description">
+                        <h3 data-i18n="projects.project_3.title"></h3>
+                        <p data-i18n="projects.project_3.description"></p>
+                        <div data-i18n="projects.project_3.link"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-index="3">
+                <div class="project-content">
+                    <div class="project-image-carousel">
+                        <div class="project-image-track">
+                            <img src="images/" alt="Screenshot of Project 4 - Image 1" class="project-image active">
+                            <img src="images/" alt="Screenshot of Project 4 - Image 2" class="project-image">
+                        </div>
+                    </div>
+                    <div class="project-description">
+                        <h3 data-i18n="projects.project_4.title"></h3>
+                        <p data-i18n="projects.project_4.description"></p>
+                        <div data-i18n="projects.project_4.link"></div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="project-card" data-index="4">
+                <div class="project-content">
+                    <div class="project-image-carousel">
+                        <div class="project-image-track">
+                            <img src="images/" alt="Screenshot of Project 5 - Image 1" class="project-image active">
+                            <img src="images/" alt="Screenshot of Project 5 - Image 2" class="project-image">
+                        </div>
+                    </div>
+                    <div class="project-description">
+                        <h3 data-i18n="projects.project_5.title"></h3>
+                        <p data-i18n="projects.project_5.description"></p>
+                        <div data-i18n="projects.project_5.link"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- other projects with +1 names -->
+        </div>
+        <span data-i18n="projects.project_copyright"></span>
+        <div class="project-nav">
+            <div class="arrow-glitch-wrapper">
+                <button class="project-arrow" id="project-prev" aria-label="Previous project" data-i18n="projects.previous"></button>
+                <div id="project-prev-glitch" class="glitch-container arrow-glitch hidden">
+                    <button class="glitch-button glitch-text-small" data-text="" data-i18n="projects.previous" aria-label="Previous project"></button>
+                </div>
+            </div>
+            <div class="arrow-glitch-wrapper">
+                <button class="project-arrow" id="project-next" aria-label="Next project" data-i18n="projects.next"></button>
+                <div id="project-next-glitch" class="glitch-container arrow-glitch hidden">
+                    <button class="glitch-button glitch-text-small" data-text="" data-i18n="projects.next" aria-label="Next project"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div id="background-text-container" class="background-text-container">
+            <div class="background-text-line float-text" id="line" data-i18n="skills.skills">Skills</div>
+        </div>
+        <div class="skills-section">
+            <div class="skills-content">
+                <h2 data-i18n="skills.title"></h2>
+                <div class="label" data-i18n="skills.frontend_label"></div>
+                <div class="grid">
+                    <div class="skills-container">HTML</div>
+                    <div class="skills-container">CSS</div>
+                    <div class="skills-container">JavaScript</div>
+                    <div class="skills-container">Vue.js</div>
+                    <div class="skills-container">React.js</div>
+                    <div class="skills-container">React Native</div>
+                    <div class="skills-container">Angular</div>
+                    <div class="skills-container">Tailwind CSS</div>
+                    <div class="skills-container">Bootstrap</div>
+                </div>
+
+                <div class="label" data-i18n="skills.backend_label"></div>
+                <div class="grid">
+                    <div class="skills-container">PHP</div>
+                    <div class="skills-container">C#</div>
+                    <div class="skills-container">Python</div>
+                    <div class="skills-container">Node.js</div>
+                    <div class="skills-container">Ruby</div>
+                    <div class="skills-container">SQL</div>
+                    <div class="skills-container">PostgreSQL</div>
+                    <div class="skills-container">SQLite</div>
+                    <div class="skills-container">MongoDB</div>
+                </div>
+
+                <div class="label" data-i18n="skills.workflow_label"></div>
+                <div>
+                    <div class="skills-container">
+                       <div class="workflow" data-i18n="skills.workflow_description"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="section">
+        <div class="background-text-container">
+            <div class="background-text-line float-text" id="line" data-i18n="reviews.reviews"></div>
+        </div>
+        <div class="reviews-section">
+            <div class="reviews-content">
+                <h2 data-i18n="reviews.title"></h2>
+            </div>
+            <div class="reviews-carousel">
+                <div class="reviews-track">
+                    <div class="review-card" data-index="0">
+                        <div class="review-content">
+                            <h3 data-i18n="reviews.review_1.name"></h3>
+                            <span data-i18n="reviews.review_1.type"></span>
+                            <hr>
+                            <p data-i18n="reviews.review_1.text"></p>
+                            <hr>
+                            <span data-i18n="reviews.review_1.source"></span>
+                        </div>
+                    </div>
+
+                    <div class="review-card" data-index="1">
+                        <div class="review-content">
+                            <h3 data-i18n="reviews.review_2.name"></h3>
+                            <span data-i18n="reviews.review_2.type"></span>
+                            <hr>
+                            <p data-i18n="reviews.review_2.text"></p>
+                            <hr>
+                            <span data-i18n="reviews.review_2.source"></span>
+                        </div>
+                    </div>
+
+                    <div class="review-card" data-index="2">
+                        <div class="review-content">
+                            <h3 data-i18n="reviews.review_3.name"></h3>
+                            <span data-i18n="reviews.review_3.type"></span>
+                            <hr>
+                            <p data-i18n="reviews.review_3.text"></p>
+                            <hr>
+                            <span data-i18n="reviews.review_3.source"></span>
+                        </div> 
+                    </div>
+
+                    <div class="review-card" data-index="3">
+                        <div class="review-content">
+                            <h3 data-i18n="reviews.review_4.name"></h3>
+                            <span data-i18n="reviews.review_4.type"></span>
+                            <hr>
+                            <p data-i18n="reviews.review_4.text"></p>
+                            <hr>
+                            <span data-i18n="reviews.review_4.source"></span>
+                        </div> 
+                    </div>
+
+                    <div class="review-card" data-index="4">
+                        <div class="review-content">
+                            <h3 data-i18n="reviews.review_5.name"></h3>
+                            <span data-i18n="reviews.review_5.type"></span>
+                            <hr>
+                            <p data-i18n="reviews.review_5.text"></p>
+                            <hr>
+                            <span data-i18n="reviews.review_5.source"></span>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="reviews-content">
+                <h2 data-i18n="reviews.write_review_title"></h2>
+                <p data-i18n="reviews.write_review_description"></p>
+            </div>
+            
+            <div class="reviews-content">
+                <div class="write-review-glitch-wrapper">
+                    <button id="write-review" class="write-review-button" aria-label="Write a review" data-i18n="reviews.write_review_button"></button>
+                    <div id="write-review-glitch" class="glitch-container write-review-glitch hidden">
+                        <button class="glitch-button glitch-text-small" data-text="" data-i18n="reviews.write_review_glitch" aria-label="Write a review"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="background-text-container">
+            <div class="background-text-line float-text" id="line" data-i18n="contact.contact"></div>
+        </div>
+        <div class="contact-section">
+            <div class="contact-content">
+                <h2 data-i18n="contact.title"></h2>
+                <div class="contact-info">
+                    <div class="contact-list">
+                        <div class="contact-glitch-wrapper">
+                            <a href="https://t.me/+79993996636" class="contact-link" target="_blank" title="Contact" data-i18n="contact.contact_text.telegram"></a>
+                            <div id="telegram-glitch" class="glitch-container contact-glitch hidden">
+                                <a href="https://t.me/+79993996636" class="glitch-link glitch-text-small" data-text="" data-i18n="contact.contact_text.telegram" title="Contact"></a>
+                            </div>
+                        </div>
+                        <span data-i18n="contact.contact_text.or"></span>
+                        <div class="contact-glitch-wrapper">
+                            <a href="https://wa.me/+79993996636" class="contact-link" target="_blank" title="Contact" data-i18n="contact.contact_text.whatsapp"></a>,
+                            <div id="whatsapp-glitch" class="glitch-container contact-glitch hidden">
+                                <a href="https://wa.me/+79993996636" class="glitch-link glitch-text-small" data-text="" data-i18n="contact.contact_text.whatsapp" title="Contact"></a>
+                            </div>
+                        </div> 
+                        <span data-i18n="contact.contact_text.message_below"></span>
+                    </div>
+                    <div class="contact-form-container">
+                        <form id="contact-form" name="contact" data-netlify="true" method="POST">
+                            <input type="hidden" name="form-name" value="contact">
+                            <div class="form-group">
+                                <label for="name" data-i18n="contact.form.name_label"></label>
+                                <input type="text" id="name" name="name" required aria-label="Your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email" data-i18n="contact.form.email_label"></label>
+                                <input type="email" id="email" name="email" required aria-label="Your email">
+                            </div>
+                            <div class="form-group">
+                                <label for="message" data-i18n="contact.form.message_label"></label>
+                                <textarea id="message" name="message" required aria-label="Your message"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-glitch-wrapper">
+                                    <button type="submit" class="form-submit" aria-label="Send message" data-i18n="contact.form.submit"></button>
+                                    <div id="form-submit-glitch" class="glitch-container form-glitch hidden">
+                                        <button class="glitch-button glitch-text-small" data-text="" data-i18n="contact.form.submit" aria-label="Send message"></button>
+                                    </div>
+                                </div>
+                                <p id="form-status" class="form-status"></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <span id="copyright-text" data-i18n="contact.footer_copyright"></span> <span id="local-time"></span>
+            </div>
+        </div>
+    </section>
+
+    <div id="image-viewer" class="image-viewer hidden">
+        <div class="image-hint" data-i18n="image_viewer.hint"></div>
+        <div class="image-viewer-content">
+            <img id="image-viewer-img" src="" alt="Enlarged project image">
+        </div>
+    </div>
+    
+    <div id="image-viewer-close-container" class="image-viewer-close-container hidden">
+        <button id="image-viewer-close" class="nav-button" aria-label="Close image viewer"></button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+{
+"nav": {
+"home": "ABOUT",
+"services": "SERVICES",
+"projects": "PROJECTS",
+"skills": "SKILLS",
+"reviews": "REVIEWS",
+"contact": "CONTACT"
+},
+
+"theme": {
+"dark": "Dark",
+"white": "White"
+},
+
+"introduction": {
+"freelance": "Available for Freelance",
+"about": "About",
+"name": "Ahmed",
+"surname": "Isaev /", 
+"greeting": "Programmer / <i>Designer</i>",
+"description": "Hi, I’m <i>Ahmed</i> — a software developer merging <i>coding</i>, <i>design</i>, and <i>AI</i> to create <i>websites</i>, <i>mobile apps</i>, and <i>intelligent</i> digital solutions, that are <i>functional</i>, <i>user-friendly</i>, and <i>future-ready</i>.",
+"resume": "More"
+},
+
+"resume": {
+"content": "Hi again, I’m <i>Ahmed</i>, a <i>26-year-old</i> full-stack developer with over <i>four years of professional experience</i> building <i>websites</i>, <i>web apps</i>, <i>mobile applications</i>, and <i>AI solutions</i>.<br><br>I focus on creating <i>practical</i>, <i>user-friendly digital experiences</i> that solve real problems, using technologies like <i>JavaScript</i>, <i>React.js</i>, <i>Node.js</i>, and other <i>efficient tools</i>.<br><br>I hold certifications in <i>AWS</i>, <i>Azure</i>, and several other platforms, which have strengthened my ability to deliver <i>scalable</i> and <i>reliable solutions</i>.<br><br>I’ve had the opportunity to work with over <i>20 individuals</i> and contribute to projects for <i>three companies</i> as a freelancer, gaining valuable experience in <i>collaboration</i>, <i>problem-solving</i>, and <i>delivering results</i> under different circumstances.<br><br>I enjoy developing projects that support the success of both <i>individuals</i> and <i>businesses</i>, always aiming to deliver <i>meaningful</i> and <i>effective results</i>.",
+"respect": "Best regards,<br>Ahmed."
+},
+
+
+
+"services": {
+"title": "Things I Do <span class=\"dash\">—</span>",
+"services": "Services",
+"landing_website": {
+"title": "Landing Website:",
+"description": "A <i>single-page</i> website optimized for conversions, with a modern design and responsive layout.",
+"price": "$200 – $800",
+"contact": "Contact"
+},
+
+"online_shop": {
+"title": "Online Shop:",
+"description": "A fully functional <i>e-commerce</i> platform with product listings, cart, and payment integration.",
+"price": "$400 – $2,000",
+"contact": "Contact"
+},
+
+"web_application": {
+"title": "Web Application:",
+"description": "Custom web apps with <i>dynamic</i> famaetures, APIs, and user authentication.",
+"price": "$800 – $5,000",
+"contact": "Contact"
+},
+
+"mobile_application": {
+"title": "Mobile Application:",
+"description": "<i>Cross-platform</i> mobile applications built with React Native for iOS and Android.",
+"price": "$1,000 – $10,000",
+"contact": "Contact"
+},
+
+"ai_solutions": {
+"title": "AI-Solutions",
+"description": "Innovative <i>AI-powered</i> solutions for businesses and individuals. From chatbots on <i>Telegram</i> and <i>Discord</i> to custom web automation.",
+"price": "$600 – $3,000",
+"contact": "Contact"
+}
+},
+
+
+
+"projects": {
+"title": "My projects <span class=\"dash\">—</span>",
+"projects": "Projects",
+
+"project_1": {
+"title": "Coffee Shop",
+"description": "Landing page template for coffee shops, with placeholders for your images and content. Perfect for showcasing menus, specials, and online booking.",
+"link": "View Live"
+},
+
+"project_2": {
+"title": "Dental Clinic",
+"description": "A clean, user-friendly dental landing page for easy appointment booking and service info.",
+"link": "View Live"
+},
+
+"project_3": {
+"title": "",
+"description": "",
+"link": "View Live"
+},
+
+"project_4": {
+"title": "",
+"description": "",
+"link": "View Live"
+},
+
+"project_5": {
+"title": "",
+"description": "",
+"link": "View Live"
+},
+
+"project_copyright": "All works displayed are original creations intended solely to showcase my skills, with full copyright retained by me. Client and company projects are not included due to copyright and confidentiality agreements.",
+
+"previous": "previous",
+"next": "next"
+},
+
+
+
+"skills": {
+"title": "Stack I Know <span class=\"dash\">—</span>",
+"skills": "Skills",
+"frontend_label": "Front-end:",
+"backend_label": "Back-end:",
+"workflow_label": "Workflow:",
+"workflow_description": "Every project starts with an idea, or sometimes a solid plan, and that’s what sets the tone for everything that follows. Before I write a single line of code, I open Figma to design clean, minimal layouts that look good and feel natural to use. For simple landing pages, I stick with the classics: HTML, CSS, and JavaScript — quick to load and easy to maintain. If the site needs to be interactive and complex, I switch to React.js, to keep everything clean but never overcomplicated. Behind the scenes, I mostly work with Node.js. It’s reliable, fast, and fits perfectly with JavaScript everywhere else. In short, I believe less is more — keeping everything minimalistic, with no clutter or extras, just clean, functional and user-friendly."
+},
+
+"reviews": {
+"title": "What Clients Say?",
+"reviews": "Reviews",
+
+
+
+
+
+
+
+
+
+
+"review_1": {
+"name": "Emilia W.",
+"type": "e-commerce",
+"text": "Cool",
+"source": "source: from my Fiverr account"
+},
+
+"review_2": {
+"name": "Saranji Kamatoshi",
+"type": "e-commerce",
+"text": "Cool",
+"source": "source: from my Fiverr account"
+},
+
+"review_3": {
+"name": "Saranji Kamatoshi",
+"type": "e-commerce",
+"text": "Cool",
+"source": "source: from my Fiverr account"
+},
+
+"review_4": {
+"name": "Saranji Kamatoshi",
+"type": "e-commerce",
+"text": "Cool",
+"source": "source: from my Fiverr account"
+},
+
+"review_5": {
+"name": "Saranji Kamatoshi",
+"type": "e-commerce",
+"text": "Cool",
+"source": "source: from my Fiverr account"
+},
+
+
+
+
+
+
+
+
+
+
+"write_review_title": "freelanced for you?",
+"write_review_description": "Let me know how I did! Click <i>WRITE</i> and leave a review — <i>good</i>, <i>bad</i>, or anything in between. It all matters.",
+"write_review_button": "Write",
+"write_review_glitch": "BE HONEST"
+},
+
+
+
+"contact": {
+"title": "I'm Online on <span class=\"dash\">—</span>",
+"contact": "Contact",
+"contact_text": {
+"telegram": "Telegram",
+"or": "/",
+"whatsapp": "WhatsApp",
+"message_below": "or just send me a <i>message below</i> — I’ll reply as soon as possible."
+},
+
+"form": {
+"name_label": "Name:",
+"email_label": "Email:",
+"message_label": "Message:",
+"submit": "SEND"
+},
+
+"footer_copyright": "Copyright: Ahmed I. R."
+},
+
+
+
+"image_viewer": {
+"hint": "Click left/right to view previous/next Image"
+}
+}

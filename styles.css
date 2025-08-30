@@ -213,11 +213,11 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    /* overflow-x: hidden;
+    overflow-x: hidden;
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch;
-    will-change: scroll-position; */
+    will-change: scroll-position;
 }
 
 body.resume-mode, body.image-viewer-mode {
@@ -1037,6 +1037,7 @@ header * {
 .project-card.active {
     opacity: 1;
     --translate-x: 0%;
+    will-change: transform, opacity;
 }
 
 .project-card.exiting {
@@ -1358,6 +1359,7 @@ header * {
 .review-card.active {
     opacity: 1;
     transform: translateX(0);
+    will-change: transform, opacity;
 }
 
 .review-card.exiting {
@@ -2243,4 +2245,14 @@ header * {
         content: "II";
         font-size: 142px;
     }
+
+    .project-card, .review-card, .float-text, .glitch-container {
+        transition: none !important;
+    }
+
+    .float-text {
+        transform: none !important; /* Disable parallax */
+    }
+    
+    
 }

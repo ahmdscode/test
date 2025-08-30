@@ -1037,7 +1037,6 @@ header * {
 .project-card.active {
     opacity: 1;
     --translate-x: 0%;
-    will-change: transform, opacity;
 }
 
 .project-card.exiting {
@@ -1359,7 +1358,6 @@ header * {
 .review-card.active {
     opacity: 1;
     transform: translateX(0);
-    will-change: transform, opacity;
 }
 
 .review-card.exiting {
@@ -2129,6 +2127,18 @@ header * {
     100% { opacity: 1; }
 }
 
+
+.project-card.active,
+.project-image.active {
+  will-change: transform, opacity;
+}
+.float-text,
+.carousel-track,
+.project-image-track,
+html, body {
+  will-change: auto; /* Remove from non-animated elements */
+}
+
 /* Mobile: stack and center image */
 @media (max-width: 768px) {
     * {
@@ -2246,13 +2256,64 @@ header * {
         font-size: 142px;
     }
 
-    .project-card, .review-card, .float-text, .glitch-container {
-        transition: none !important;
-    }
+    .glitch-container { animation-duration: 0s; } /* Disable heavy animations */
+    .float-text { transform: none !important; } /* Disable parallax */
+}
 
-    .float-text {
-        transform: none !important; /* Disable parallax */
-    }
-    
-    
+@media (max-width: 768px) {
+  /* Disable glitch animations */
+  .glitch-text::before,
+  .glitch-text::after,
+  .glitch-text-small::before,
+  .glitch-text-small::after {
+    animation: none;
+    clip-path: none;
+    transform: none;
+  }
+  /* Disable backdrop-filter */
+  .custom-select .selected,
+  .service-content,
+  .resume-container,
+  .project-card,
+  .review-card,
+  .form-group input,
+  .form-group textarea {
+    backdrop-filter: none;
+  }
+  /* Simplify transitions */
+  .project-card,
+  .project-image,
+  .review-card,
+  .resume-container,
+  .image-viewer {
+    transition: none;
+  }
+  /* Reduce blur on background text */
+  .background-text-line {
+    filter: blur(5px);
+  }
+}
+
+@media (max-width: 768px) {
+  html, body {
+    scroll-snap-type: none; /* Disable mandatory snapping */
+  }
+  .section {
+    scroll-snap-align: none;
+    scroll-snap-stop: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-card,
+  .project-image,
+  .review-card {
+    transition: opacity 0.2s ease; /* Shorten and simplify */
+    transform: none; /* Avoid transforms */
+  }
+  .project-card:not(.active),
+  .project-image:not(.active),
+  .review-card:not(.active) {
+    display: none; /* Hide offscreen elements */
+  }
 }

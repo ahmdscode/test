@@ -64,6 +64,20 @@
         </nav>
     </header>
 
+    <div id="language-modal" class="language-modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <h2 data-i18n="modal.choose_language">Language /</h2>
+            <div class="language-options">
+                <button class="language-option" data-value="ce" data-i18n="modal.languages.chechen">Нохчийн</button>
+                <button class="language-option" data-value="ru" data-i18n="modal.languages.russian">Русский</button>
+                <button class="language-option" data-value="en" data-i18n="modal.languages.english">English</button>
+                <button class="language-option" data-value="de" data-i18n="modal.languages.german">Deutsch</button>
+                <button class="language-option" data-value="fr" data-i18n="modal.languages.french">Français</button>
+            </div>
+        </div>
+    </div>
+
     <div class="custom-select">
         <div class="selected">English</div>
             
@@ -350,8 +364,8 @@
                     <div class="skills-container">HTML</div>
                     <div class="skills-container">CSS</div>
                     <div class="skills-container">JavaScript</div>
-                    <div class="skills-container">Vue.js</div>
                     <div class="skills-container">React.js</div>
+                    <div class="skills-container">Vue.js</div>
                     <div class="skills-container">React Native</div>
                     <div class="skills-container">Angular</div>
                     <div class="skills-container">Tailwind CSS</div>
@@ -360,15 +374,14 @@
 
                 <div class="label" data-i18n="skills.backend_label"></div>
                 <div class="grid">
-                    <div class="skills-container">PHP</div>
+                    <!-- <div class="skills-container">PHP</div> -->
+                    <div class="skills-container">Node.js</div>
                     <div class="skills-container">C#</div>
                     <div class="skills-container">Python</div>
-                    <div class="skills-container">Node.js</div>
-                    <div class="skills-container">Ruby</div>
+                    <!-- <div class="skills-container">Ruby</div> -->
                     <div class="skills-container">SQL</div>
                     <div class="skills-container">PostgreSQL</div>
                     <div class="skills-container">SQLite</div>
-                    <div class="skills-container">MongoDB</div>
                 </div>
 
                 <div class="label" data-i18n="skills.workflow_label"></div>

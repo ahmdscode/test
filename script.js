@@ -70,7 +70,35 @@ const weirdProjectButton = document.getElementById('weird-project');
 
 const floatTexts = document.querySelectorAll(".float-text");
 
-  document.addEventListener("mousemove", (e) => {
+// Prevent double triggers on mobile
+let lastInteraction = 0;
+const interactionCooldown = 600; // Slightly longer than 500ms animation
+
+function handleInteraction(eventType, callback) {
+    return (e) => {
+        const now = Date.now();
+        if (now - lastInteraction < interactionCooldown) {
+            e.preventDefault();
+            return;
+        }
+        lastInteraction = now;
+        callback(e);
+    };
+}
+
+// Reusable glitch animation function
+function triggerGlitch(button, wrapper, callback = null) {
+    if (button) button.classList.add('glitch-active');
+    if (wrapper) wrapper.classList.add('glitch-active');
+    setTimeout(() => {
+        if (button) button.classList.remove('glitch-active');
+        if (wrapper) wrapper.classList.remove('glitch-active');
+        if (callback) callback();
+    }, 500); // Match existing 500ms duration
+}
+
+// Float Text Animation
+document.addEventListener("mousemove", (e) => {
     let x = (e.clientX / window.innerWidth) - 0.5;
     let y = (e.clientY / window.innerHeight) - 0.5;
 
@@ -78,10 +106,11 @@ const floatTexts = document.querySelectorAll(".float-text");
     let moveY = y * 25;
 
     floatTexts.forEach(el => {
-      el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        el.style.transform = `translate(${moveX}px, ${moveY}px)`;
     });
 });
 
+// Stop Review Auto-Slide
 function stopReviewAutoSlide() {
     clearTimeout(reviewAutoSlideTimeout);
 }
@@ -89,25 +118,26 @@ function stopReviewAutoSlide() {
 // Navigation Click Handler
 if (navGlitchWrappers.length > 0) {
     navGlitchWrappers.forEach(wrapper => {
-        wrapper.addEventListener('click', (e) => {
-            e.preventDefault();
-            const navButton = wrapper.querySelector('.nav-button');
-            if (navButton) {
-                const sectionId = navButton.id.replace('-nav', '');
-                const targetSection = sectionId === 'home' ? 'introduction' : sectionId;
-                const section = document.getElementById(targetSection);
+        const navButton = wrapper.querySelector('.nav-button');
+        if (!navButton) {
+            console.error('Nav button not found in wrapper:', wrapper);
+            return;
+        }
+        const sectionId = navButton.id.replace('-nav', '');
+        const targetSection = sectionId === 'home' ? 'introduction' : sectionId;
+        const section = document.getElementById(targetSection);
+
+        ['click', 'touchstart'].forEach(eventType => {
+            wrapper.addEventListener(eventType, handleInteraction(eventType, (e) => {
+                e.preventDefault();
                 if (section) {
-                    section.scrollIntoView({ behavior: 'smooth' });
-                    navButton.classList.add('glitch-active');
-                    wrapper.classList.add('glitch-active');
-                    setTimeout(() => {
-                        navButton.classList.remove('glitch-active');
-                        wrapper.classList.remove('glitch-active');
-                    }, 500);
+                    triggerGlitch(navButton, wrapper, () => {
+                        section.scrollIntoView({ behavior: 'smooth' });
+                    });
                 } else {
                     console.error(`Section with ID '${targetSection}' not found.`);
                 }
-            }
+            }));
         });
     });
 } else {
@@ -168,12 +198,15 @@ if (homeNav && skillsNav && servicesNav && projectsNav && reviewsNav && contactN
 // Resume Toggle
 if (resumeButton && resumeContainer && resumeCloseContainer && resumeClose && resumeGlitchWrapper) {
     const openResume = (e) => {
+        e.preventDefault();
         e.stopPropagation();
-        resumeContainer.classList.remove('hidden');
-        resumeContainer.classList.add('show');
-        resumeCloseContainer.classList.remove('hidden');
-        resumeCloseContainer.classList.add('show');
-        body.classList.add('resume-mode');
+        triggerGlitch(resumeButton, resumeGlitchWrapper, () => {
+            resumeContainer.classList.remove('hidden');
+            resumeContainer.classList.add('show');
+            resumeCloseContainer.classList.remove('hidden');
+            resumeCloseContainer.classList.add('show');
+            body.classList.add('resume-mode');
+        });
     };
 
     const closeResume = (e) => {
@@ -185,7 +218,10 @@ if (resumeButton && resumeContainer && resumeCloseContainer && resumeClose && re
         body.classList.remove('resume-mode');
     };
 
-    resumeGlitchWrapper.addEventListener('click', openResume);
+    ['click', 'touchstart'].forEach(eventType => {
+        resumeGlitchWrapper.addEventListener(eventType, handleInteraction(eventType, openResume));
+    });
+
     resumeClose.addEventListener('click', closeResume);
 
     let lastTap = 0;
@@ -206,33 +242,28 @@ if (resumeButton && resumeContainer && resumeCloseContainer && resumeClose && re
 // Image Viewer Toggle with Swipe and Click Navigation
 if (imageViewer && imageViewerCloseContainer && imageViewerClose && imageViewerImg) {
     let currentImageIndex = 0;
-    let currentProjectImages = []; // Store images for the current project
+    let currentProjectImages = [];
 
-    // Function to update image with fade transition
     const updateImage = (index) => {
         imageViewerImg.classList.remove('fade-in');
         imageViewerImg.classList.add('fade-out');
-        
         setTimeout(() => {
             imageViewerImg.src = currentProjectImages[index].src;
             imageViewerImg.alt = currentProjectImages[index].alt;
             imageViewerImg.classList.remove('fade-out');
             imageViewerImg.classList.add('fade-in');
             currentImageIndex = index;
-        }, 200); // Match CSS transition duration
+        }, 200);
     };
 
     const openImageViewer = (e) => {
         e.stopPropagation();
-        // Find the parent project-card
         const projectCard = e.target.closest('.project-card');
         if (!projectCard) return;
 
-        // Get images only from this project-card
         currentProjectImages = Array.from(projectCard.querySelectorAll('.project-image'));
         currentImageIndex = currentProjectImages.findIndex(img => img.src === e.target.src);
-        
-        if (currentImageIndex === -1) return; // Safety check
+        if (currentImageIndex === -1) return;
 
         imageViewerImg.src = e.target.src;
         imageViewerImg.alt = e.target.alt;
@@ -252,32 +283,29 @@ if (imageViewer && imageViewerCloseContainer && imageViewerClose && imageViewerI
         body.classList.remove('image-viewer-mode');
         setTimeout(() => {
             imageViewer.classList.remove('fade-out');
-        }, 200); // Reset fade-out after transition
+        }, 200);
     };
 
-    // Navigate to next or previous image
     const navigateImage = (direction) => {
         let newIndex = currentImageIndex + direction;
-        if (newIndex < 0) newIndex = currentProjectImages.length - 1; // Loop to last image
-        if (newIndex >= currentProjectImages.length) newIndex = 0; // Loop to first image
+        if (newIndex < 0) newIndex = currentProjectImages.length - 1;
+        if (newIndex >= currentProjectImages.length) newIndex = 0;
         updateImage(newIndex);
     };
 
-    // Click navigation on left/right corners
     imageViewer.addEventListener('click', (e) => {
         if (e.target.closest('#image-viewer-close-container')) return;
         const rect = imageViewer.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
-        const third = rect.width / 3; // Divide viewer into three parts
+        const third = rect.width / 3;
 
         if (clickX < third) {
-            navigateImage(-1); // Left third: previous image
+            navigateImage(-1);
         } else if (clickX > 2 * third) {
-            navigateImage(1); // Right third: next image
+            navigateImage(1);
         }
     });
 
-    // Swipe navigation
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -288,18 +316,16 @@ if (imageViewer && imageViewerCloseContainer && imageViewerClose && imageViewerI
     imageViewer.addEventListener('touchend', (e) => {
         touchEndX = e.changedTouches[0].screenX;
         const swipeDistance = touchEndX - touchStartX;
-        if (Math.abs(swipeDistance) > 50) { // Minimum swipe distance
-            if (swipeDistance > 0) navigateImage(-1); // Swipe right: previous
-            else navigateImage(1); // Swipe left: next
+        if (Math.abs(swipeDistance) > 50) {
+            if (swipeDistance > 0) navigateImage(-1);
+            else navigateImage(1);
         }
     });
 
-    // Attach event listeners to all project images
     const projectImages = document.querySelectorAll('.project-image');
     projectImages.forEach(img => img.addEventListener('click', openImageViewer));
     imageViewerClose.addEventListener('click', closeImageViewer);
 
-    // Double-tap to close
     let lastTap = 0;
     imageViewer.addEventListener('click', (e) => {
         if (e.target.closest('#image-viewer-close-container')) return;
@@ -308,11 +334,10 @@ if (imageViewer && imageViewerCloseContainer && imageViewerClose && imageViewerI
         lastTap = currentTime;
     });
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && imageViewer.classList.contains('show')) closeImageViewer(e);
-        else if (e.key === 'ArrowLeft') navigateImage(-1); // Previous image
-        else if (e.key === 'ArrowRight') navigateImage(1); // Next image
+        else if (e.key === 'ArrowLeft') navigateImage(-1);
+        else if (e.key === 'ArrowRight') navigateImage(1);
     });
 } else {
     console.error('Image viewer elements not found.');
@@ -340,7 +365,7 @@ if (localTimeElement) {
 
 // Name Glitch Effect
 if (glitchContainer && nameText) {
-    function triggerGlitch() {
+    function triggerNameGlitch() {
         nameText.classList.add('hidden');
         glitchContainer.classList.remove('hidden');
         glitchContainer.classList.add('show');
@@ -351,8 +376,8 @@ if (glitchContainer && nameText) {
         }, 500);
     }
 
-    setInterval(triggerGlitch, 3000);
-    setTimeout(triggerGlitch, 1000);
+    setInterval(triggerNameGlitch, 3000);
+    setTimeout(triggerNameGlitch, 1000);
 } else {
     console.error('Name glitch elements not found.');
 }
@@ -370,30 +395,30 @@ if (!homeGlitch || !skillsNavGlitch || !servicesNavGlitch || !projectsNavGlitch 
 // Service Order Buttons
 if (servicePriceGlitchWrappers.length > 0) {
     servicePriceGlitchWrappers.forEach(wrapper => {
-        wrapper.addEventListener('click', (e) => {
-            e.preventDefault();
-            const serviceButton = wrapper.querySelector('.service-price');
-            if (serviceButton) {
-                const serviceName = serviceButton.getAttribute('data-service');
-                const contactSection = document.getElementById('contact');
-                const nameInput = document.getElementById('name');
-                const messageInput = document.getElementById('message');
+        const serviceButton = wrapper.querySelector('.service-price');
+        if (!serviceButton) {
+            console.error('Service button not found in wrapper:', wrapper);
+            return;
+        }
+        const serviceName = serviceButton.getAttribute('data-service');
+        const contactSection = document.getElementById('contact');
+        const nameInput = document.getElementById('name');
+        const messageInput = document.getElementById('message');
 
+        ['click', 'touchstart'].forEach(eventType => {
+            wrapper.addEventListener(eventType, handleInteraction(eventType, (e) => {
+                e.preventDefault();
                 if (contactSection && nameInput && messageInput) {
-                    contactSection.scrollIntoView({ behavior: 'smooth' });
-                    nameInput.focus();
-                    const article = ['a', 'e', 'i', 'o', 'u'].includes(serviceName[0].toLowerCase()) ? 'an' : 'a';
-                    messageInput.value = `Hi, I’m interested in ${article} ${serviceName}. Here’s what I need —`;
-                    serviceButton.classList.add('glitch-active');
-                    wrapper.classList.add('glitch-active');
-                    setTimeout(() => {
-                        serviceButton.classList.remove('glitch-active');
-                        wrapper.classList.remove('glitch-active');
-                    }, 500);
+                    triggerGlitch(serviceButton, wrapper, () => {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                        nameInput.focus();
+                        const article = ['a', 'e', 'i', 'o', 'u'].includes(serviceName[0].toLowerCase()) ? 'an' : 'a';
+                        messageInput.value = `Hi, I’m interested in ${article} ${serviceName}. Here’s what I need —`;
+                    });
                 } else {
                     console.error('Contact section, name input, or message input not found.');
                 }
-            }
+            }));
         });
     });
 } else {
@@ -402,18 +427,22 @@ if (servicePriceGlitchWrappers.length > 0) {
 
 // Weird Project Button
 if (weirdProjectButton) {
-    weirdProjectButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        const contactSection = document.getElementById('contact');
-        const nameInput = document.getElementById('name');
-        const messageInput = document.getElementById('message');
-        if (contactSection && nameInput && messageInput) {
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-            nameInput.focus();
-            messageInput.value = 'Hey, I got some weird project idea — ';
-        } else {
-            console.error('Contact section, name input, or message input not found.');
-        }
+    ['click', 'touchstart'].forEach(eventType => {
+        weirdProjectButton.addEventListener(eventType, handleInteraction(eventType, (e) => {
+            e.preventDefault();
+            const contactSection = document.getElementById('contact');
+            const nameInput = document.getElementById('name');
+            const messageInput = document.getElementById('message');
+            if (contactSection && nameInput && messageInput) {
+                triggerGlitch(weirdProjectButton, null, () => {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                    nameInput.focus();
+                    messageInput.value = 'Hey, I got some weird project idea — ';
+                });
+            } else {
+                console.error('Contact section, name input, or message input not found.');
+            }
+        }));
     });
 } else {
     console.error('Weird project button not found.');
@@ -444,26 +473,20 @@ function updateProjectCarousel() {
 if (carouselTrack && projectCards.length > 0 && projectPrev && projectNext && projectPrevGlitchWrapper && projectNextGlitchWrapper) {
     updateProjectCarousel();
 
-    projectNextGlitchWrapper.addEventListener('click', () => {
-        currentCardIndex = (currentCardIndex + 1) % projectCards.length;
-        updateProjectCarousel();
-        projectNext.classList.add('glitch-active');
-        projectNextGlitchWrapper.classList.add('glitch-active');
-        setTimeout(() => {
-            projectNext.classList.remove('glitch-active');
-            projectNextGlitchWrapper.classList.remove('glitch-active');
-        }, 500);
-    });
+    ['click', 'touchstart'].forEach(eventType => {
+        projectNextGlitchWrapper.addEventListener(eventType, handleInteraction(eventType, () => {
+            triggerGlitch(projectNext, projectNextGlitchWrapper, () => {
+                currentCardIndex = (currentCardIndex + 1) % projectCards.length;
+                updateProjectCarousel();
+            });
+        }));
 
-    projectPrevGlitchWrapper.addEventListener('click', () => {
-        currentCardIndex = (currentCardIndex - 1 + projectCards.length) % projectCards.length;
-        updateProjectCarousel();
-        projectPrev.classList.add('glitch-active');
-        projectPrevGlitchWrapper.classList.add('glitch-active');
-        setTimeout(() => {
-            projectPrev.classList.remove('glitch-active');
-            projectPrevGlitchWrapper.classList.remove('glitch-active');
-        }, 500);
+        projectPrevGlitchWrapper.addEventListener(eventType, handleInteraction(eventType, () => {
+            triggerGlitch(projectPrev, projectPrevGlitchWrapper, () => {
+                currentCardIndex = (currentCardIndex - 1 + projectCards.length) % projectCards.length;
+                updateProjectCarousel();
+            });
+        }));
     });
 } else {
     console.error('Project carousel elements not found.');
@@ -492,11 +515,11 @@ projectImageCarousels.forEach((carousel, carouselIndex) => {
             } else if (index === prevIndex) {
                 img.classList.add('exiting');
                 img.style.opacity = '0';
-                img.style.transform = 'scale(1)'; // scale(0.5)
+                img.style.transform = 'scale(1)';
                 img.style.zIndex = '0';
             } else {
                 img.style.opacity = '0';
-                img.style.transform = 'scale(1)'; // scale(0.5)
+                img.style.transform = 'scale(1)';
                 img.style.zIndex = '0';
             }
         });
@@ -513,13 +536,9 @@ projectImageCarousels.forEach((carousel, carouselIndex) => {
         clearTimeout(imageAutoSlideTimeout);
     }
 
-    // Initialize the first image
     updateImageCarousel();
-
-    // Start auto-slide
     startImageAutoSlide();
 
-    // Update image viewer for multiple images
     images.forEach(img => {
         img.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -543,7 +562,7 @@ let currentReviewIndex = 0;
 let reviewAutoSlideTimeout = null;
 let isReviewCarouselHovered = false;
 let slideStartTime = Date.now();
-let slideDuration = 3000; // 3 seconds
+let slideDuration = 3000;
 
 function updateReviewsCarousel(direction = 'next') {
     const prevIndex = currentReviewIndex;
@@ -554,7 +573,6 @@ function updateReviewsCarousel(direction = 'next') {
     reviewCards.forEach((card, index) => {
         card.style.transition = 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out';
         card.classList.remove('active', 'exiting');
-        
         if (index === currentReviewIndex) {
             card.classList.add('active');
             card.style.transform = 'translateX(0)';
@@ -569,7 +587,6 @@ function updateReviewsCarousel(direction = 'next') {
         }
     });
 
-    // Reset the slide start time after updating the carousel
     slideStartTime = Date.now();
 }
 
@@ -577,58 +594,52 @@ function startReviewAutoSlide(remainingTime = slideDuration) {
     if (!isReviewCarouselHovered) {
         reviewAutoSlideTimeout = setTimeout(() => {
             updateReviewsCarousel('next');
-            startReviewAutoSlide(); // Start next cycle with full duration
+            startReviewAutoSlide();
         }, remainingTime);
     }
 }
 
 if (reviewCards.length > 0) {
-    updateReviewsCarousel(); // Initialize carousel
+    updateReviewsCarousel();
 
-    // Add hover events to each review card
     reviewCards.forEach(card => {
         card.addEventListener('mouseenter', () => {
             isReviewCarouselHovered = true;
-            // Calculate remaining time when hover starts
             const elapsedTime = Date.now() - slideStartTime;
             const remainingTime = Math.max(0, slideDuration - elapsedTime);
             stopReviewAutoSlide();
-            // Store remaining time for use when hover ends
             card.dataset.remainingTime = remainingTime;
         });
         card.addEventListener('mouseleave', () => {
             isReviewCarouselHovered = false;
-            // Resume with remaining time, default to full duration if not set
             const remainingTime = parseInt(card.dataset.remainingTime) || slideDuration;
             startReviewAutoSlide(remainingTime);
         });
     });
 
-    startReviewAutoSlide(); // Start auto-slide
+    startReviewAutoSlide();
 } else {
     console.error('Review cards not found.');
 }
 
 // Write Review Button
 if (writeReviewButton && writeReviewGlitchWrapper) {
-    writeReviewGlitchWrapper.addEventListener('click', (e) => {
-        e.preventDefault();
-        const contactSection = document.getElementById('contact');
-        const nameInput = document.getElementById('name');
-        const messageInput = document.getElementById('message');
-        if (contactSection && nameInput && messageInput) {
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-            nameInput.focus();
-            messageInput.value = 'Rreview — ';
-            writeReviewButton.classList.add('glitch-active');
-            writeReviewGlitchWrapper.classList.add('glitch-active');
-            setTimeout(() => {
-                writeReviewButton.classList.remove('glitch-active');
-                writeReviewGlitchWrapper.classList.remove('glitch-active');
-            }, 500);
-        } else {
-            console.error('Contact section, name input, or message input not found.');
-        }
+    ['click', 'touchstart'].forEach(eventType => {
+        writeReviewGlitchWrapper.addEventListener(eventType, handleInteraction(eventType, (e) => {
+            e.preventDefault();
+            const contactSection = document.getElementById('contact');
+            const nameInput = document.getElementById('name');
+            const messageInput = document.getElementById('message');
+            if (contactSection && nameInput && messageInput) {
+                triggerGlitch(writeReviewButton, writeReviewGlitchWrapper, () => {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                    nameInput.focus();
+                    messageInput.value = 'Rreview — ';
+                });
+            } else {
+                console.error('Contact section, name input, or message input not found.');
+            }
+        }));
     });
 } else {
     console.error('Write review button elements not found.');
@@ -639,6 +650,7 @@ if (contactForm && formStatus && formSubmitGlitch && formGlitchWrapper) {
     const submitButton = document.querySelector('.form-submit');
 
     const submitForm = async (e) => {
+        e.preventDefault();
         e.stopPropagation();
         if (!contactForm.checkValidity()) {
             contactForm.reportValidity();
@@ -647,41 +659,78 @@ if (contactForm && formStatus && formSubmitGlitch && formGlitchWrapper) {
 
         submitButton.disabled = true;
         submitButton.classList.add('hidden');
-        formSubmitGlitch.classList.remove('hidden');
-        formSubmitGlitch.classList.add('show');
-        formStatus.textContent = 'Sending...';
+        triggerGlitch(formSubmitGlitch, formGlitchWrapper, async () => {
+            formStatus.textContent = 'Sending...';
+            const formData = new FormData(contactForm);
 
-        const formData = new FormData(contactForm);
+            try {
+                const response = await fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(formData).toString()
+                });
 
-        try {
-            const response = await fetch('/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(formData).toString()
-            });
-
-            if (response.ok) {
-                formStatus.textContent = 'Message sent successfully!';
-                contactForm.reset();
-            } else {
-                throw new Error('Failed to send message.');
-            }
-        } catch (error) {
-            formStatus.textContent = 'Error sending message. Please try again.';
-            console.error('Form submission error:', error);
-        } finally {
-            setTimeout(() => {
+                if (response.ok) {
+                    formStatus.textContent = 'Message sent successfully!';
+                    contactForm.reset();
+                } else {
+                    throw new Error('Failed to send message.');
+                }
+            } catch (error) {
+                formStatus.textContent = 'Error sending message. Please try again.';
+                console.error('Form submission error:', error);
+            } finally {
                 formSubmitGlitch.classList.remove('show');
                 formSubmitGlitch.classList.add('hidden');
                 submitButton.classList.remove('hidden');
                 submitButton.disabled = false;
-            }, 500);
-        }
+            }
+        });
     };
 
-    formGlitchWrapper.addEventListener('click', submitForm);
+    ['click', 'touchstart'].forEach(eventType => {
+        formGlitchWrapper.addEventListener(eventType, handleInteraction(eventType, submitForm));
+    });
 } else {
     console.error('Contact form elements not found.');
+}
+
+// Contact Buttons (Telegram and WhatsApp)
+if (telegramGlitch && whatsappGlitch) {
+    const telegramGlitchWrapper = telegramGlitch.closest('.contact-glitch-wrapper') || telegramGlitch.parentElement;
+    const whatsappGlitchWrapper = whatsappGlitch.closest('.contact-glitch-wrapper') || whatsappGlitch.parentElement;
+
+    ['click', 'touchstart'].forEach(eventType => {
+        if (telegramGlitchWrapper) {
+            const telegramLink = telegramGlitch.querySelector('a') || telegramGlitch;
+            telegramGlitchWrapper.addEventListener(eventType, handleInteraction(eventType, (e) => {
+                e.preventDefault();
+                triggerGlitch(telegramGlitch, telegramGlitchWrapper, () => {
+                    if (telegramLink && telegramLink.href) {
+                        window.location.href = telegramLink.href;
+                    }
+                });
+            }));
+        } else {
+            console.error('Telegram glitch wrapper not found.');
+        }
+
+        if (whatsappGlitchWrapper) {
+            const whatsappLink = whatsappGlitch.querySelector('a') || whatsappGlitch;
+            whatsappGlitchWrapper.addEventListener(eventType, handleInteraction(eventType, (e) => {
+                e.preventDefault();
+                triggerGlitch(whatsappGlitch, whatsappGlitchWrapper, () => {
+                    if (whatsappLink && whatsappLink.href) {
+                        window.location.href = whatsappLink.href;
+                    }
+                });
+            }));
+        } else {
+            console.error('WhatsApp glitch wrapper not found.');
+        }
+    });
+} else {
+    console.error('Contact glitch elements (telegram or whatsapp) not found.');
 }
 
 // Combined Theme and Language Switcher
@@ -696,7 +745,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLanguage = localStorage.getItem('language') || 'en';
     let currentTheme = localStorage.getItem('theme') || 'black';
 
-    // Load translations from JSON
     async function loadTranslations(lang) {
         try {
             const response = await fetch(`./${lang}.json`);
@@ -708,12 +756,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Get nested property from translation object
     function getNestedProperty(obj, path) {
         return path.split('.').reduce((current, key) => current && current[key], obj) || '';
     }
 
-    // Update text content for all elements with data-i18n
     function updateTextContent(translations) {
         document.querySelectorAll('[data-i18n]').forEach(element => {
             const key = element.getAttribute('data-i18n');
@@ -730,7 +776,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     element.textContent = text;
                 }
-                // Update data-text for glitch effects
                 if (
                     element.classList.contains('glitch-button') ||
                     element.classList.contains('glitch-text') ||
@@ -743,7 +788,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.lang = currentLanguage;
     }
 
-    // Set language and update translations
     async function setLanguage(lang) {
         currentLanguage = lang;
         localStorage.setItem('language', lang);
@@ -752,31 +796,28 @@ document.addEventListener('DOMContentLoaded', () => {
         selected.textContent = getNestedProperty(translations, 'language.current') || optionsContainer.querySelector(`[data-value="${lang}"]`).textContent;
     }
 
-    // Initialize theme
     function initializeTheme() {
         body.classList.toggle('white-theme', currentTheme === 'white');
         themeToggle.setAttribute('data-i18n', currentTheme === 'white' ? 'theme.dark' : 'theme.white');
     }
 
-    // Theme toggle handler
-    function handleThemeToggle() {
+    function handleThemeToggle(e) {
+        e.preventDefault();
         body.classList.toggle('white-theme');
         currentTheme = body.classList.contains('white-theme') ? 'white' : 'black';
         localStorage.setItem('theme', currentTheme);
         themeToggle.setAttribute('data-i18n', currentTheme === 'white' ? 'theme.dark' : 'theme.white');
-        // Trigger translation update for the theme button
         setLanguage(currentLanguage);
     }
 
-    // Initialize
     if (themeToggle && body && select) {
         initializeTheme();
         setLanguage(currentLanguage);
 
-        // Theme toggle event listener
-        themeToggle.addEventListener('click', handleThemeToggle);
+        ['click', 'touchstart'].forEach(eventType => {
+            themeToggle.addEventListener(eventType, handleInteraction(eventType, handleThemeToggle));
+        });
 
-        // Language dropdown interactivity
         selected.addEventListener('click', () => {
             select.classList.toggle('active');
         });
@@ -798,31 +839,3 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Required elements (themeToggle, body, or select) not found.');
     }
 });
-
-const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-if (!isMobile) {
-  document.addEventListener("mousemove", throttle((e) => {
-    let x = (e.clientX / window.innerWidth) - 0.5;
-    let y = (e.clientY / window.innerHeight) - 0.5;
-    let moveX = x * 10; // Reduced scale for mobile
-    let moveY = y * 10;
-    floatTexts.forEach(el => {
-      el.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    });
-  }, 33));
-}
-
-// Pause carousels when not in view
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      startImageAutoSlide();
-      startReviewAutoSlide();
-    } else {
-      stopImageAutoSlide();
-      stopReviewAutoSlide();
-    }
-  });
-}, { rootMargin: '0px', threshold: 0.1 });
-observer.observe(document.querySelector('#projects'));
-observer.observe(document.querySelector('#reviews'));
